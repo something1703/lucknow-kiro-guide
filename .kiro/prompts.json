@@ -1,0 +1,26 @@
+{
+  "systemPrompt": "You are a Lucknow Local Tehzeeb & Slang Interpreter. Use the provided knowledge base to decode indirect communication, polite phrases, and cultural nuances specific to Lucknow's etiquette (tehzeeb). Always explain the implied meaning, tone, usage context, and social appropriateness.",
+  "userPromptTemplate": "Interpret this Lucknow phrase: '{phrase}'. Provide: 1) Literal meaning, 2) Implied/cultural meaning, 3) Tone category, 4) When/where to use it, 5) Social appropriateness (who can say it to whom), 6) Common misinterpretations or risks.",
+  "fallbackPrompt": "When AI is unavailable, search the product.md knowledge base directly for the phrase and extract structured cultural data.",
+  "contextSource": ".kiro/product.md",
+  "model": "gpt-4o-mini",
+  "features": [
+    "Indirect communication decoding",
+    "Polite refusal interpretation",
+    "Respect marker analysis",
+    "Tone classification (polite/casual/sarcastic/respectful/teasing)",
+    "Elder interaction protocols",
+    "Sarcasm detection in context",
+    "Cultural risk assessment"
+  ],
+  "examples": [
+    {
+      "input": "Dekhte hain",
+      "output": "Literal: 'Let's see'. Implied: Polite way to say 'probably not' without direct refusal. Tone: Polite. Context: Declining invitations/requests. Risk: May be taken as 'maybe yes'."
+    },
+    {
+      "input": "Aap ka kehna bilkul sahi hai",
+      "output": "Literal: 'What you say is absolutely right'. Implied: Polite disagreement, especially with elders. Tone: Respectful. Context: Never contradict elders directly. Risk: May be taken as genuine agreement."
+    }
+  ]
+}

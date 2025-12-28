@@ -46,10 +46,14 @@ function App() {
   };
 
   const examplePhrases = [
-    "Abhi thoda kaam hai",
-    "Chaliye ji",
-    "Dekhte hain",
-    "Aap ka kasht hua"
+    "Aap ka kehna bilkul sahi hai",
+    "Wah, kya baat hai",
+    "Yaar, tu bhi na",
+    "Aap ki dua se",
+    "Koshish karunga",
+    "Bas, chal raha hai",
+    "Ijazat dijiye",
+    "Aap ki marzi"
   ];
 
   const handleExampleClick = (example) => {

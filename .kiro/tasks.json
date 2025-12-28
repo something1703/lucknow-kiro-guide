@@ -1,0 +1,68 @@
+{
+  "projectName": "Lucknow Tehzeeb Interpreter",
+  "challenge": "Kiro Heroes Week 5: The Local Guide",
+  "deadline": "2025-12-28T23:59:00+05:30",
+  "description": "AI-powered cultural interpreter that decodes Lucknow's indirect communication and polite phrases using custom Kiro context",
+  "objectives": [
+    "Build a tool that understands Lucknow's specific culture and tehzeeb (etiquette)",
+    "Encode 928 lines of cultural knowledge in .kiro/product.md",
+    "Use Kiro pattern to steer AI from literal to culturally-aware interpretations",
+    "Deploy full-stack application with AI + manual fallback system"
+  ],
+  "features": [
+    "Glass morphism UI with Lucknow cityscape background",
+    "Dual-mode intelligence: OpenAI GPT-4o-mini + product.md fallback",
+    "Cultural analysis breakdown: implied meaning, tone, usage context, social risks",
+    "Environment-based API configuration (dev/production)",
+    "49,031 character context loading per request"
+  ],
+  "techStack": {
+    "frontend": "React 18.2.0 with Hooks, Glass Morphism CSS, Custom animations",
+    "backend": "Express.js 4.18.2, OpenAI SDK 4.20.1, Manual fallback parser",
+    "ai": "OpenAI GPT-4o-mini with full product.md context",
+    "deployment": "Vercel (Frontend + Serverless Backend)",
+    "kiro": "Context loading: 49,031 chars, 928 lines, 50+ phrase entries"
+  },
+  "culturalRules": [
+    "Polite disagreement: Never say 'no' directly to elders",
+    "Indirect refusal: Use time delays, vague commitments",
+    "Respect markers: 'aap', 'ji', 'pehle aap', 'meharbani'",
+    "Elder interaction: Maximum formality, physical deference",
+    "Humor boundaries: Self-deprecating safer than mocking others",
+    "Emergency directness: Safety overrides politeness"
+  ],
+  "keyPhrases": [
+    "Dekhte hain (Let's see) = Probably not happening",
+    "Aap ka kehna bilkul sahi hai = Polite disagreement",
+    "Koshish karunga (I'll try) = Non-committal refusal",
+    "Ijazat dijiye = Respectful way to exit elder's presence",
+    "Wah, kya baat hai = Genuine praise OR sarcasm (context-dependent)",
+    "Aap ki dua se = Attributing success to elder's blessings"
+  ],
+  "completedTasks": [
+    "✅ Express backend with OpenAI integration + fallback",
+    "✅ React frontend with glass morphism UI",
+    "✅ Kiro context loading (49,031 chars verified)",
+    "✅ GitHub repo: github.com/something1703/lucknow-kiro-guide",
+    "✅ Vercel deployment (frontend + backend)",
+    "✅ Environment-based configuration",
+    "✅ Manual fallback parser",
+    "✅ 8 screenshots in docs/screenshots/",
+    "✅ Comprehensive README"
+  ],
+  "urls": {
+    "frontend": "https://lucknow-kiro-guide-5t9d-d8nksu1si.vercel.app/",
+    "backend": "https://lucknow-kiro-guide.vercel.app",
+    "github": "https://github.com/something1703/lucknow-kiro-guide"
+  },
+  "hackathonCompliance": {
+    "customContext": "✅ .kiro/product.md (928 lines, 49,031 characters)",
+    "culturalEncoding": "✅ Phrase entries, behavioral rules, tone classification",
+    "kiroAtRoot": "✅ Visible in GitHub repo",
+    "aiUtilization": "✅ OpenAI GPT-4o-mini with full context",
+    "publicRepo": "✅ github.com/something1703/lucknow-kiro-guide",
+    "liveDeployment": "✅ Working on Vercel",
+    "screenshots": "✅ 8 screenshots in docs/screenshots/",
+    "technicalBlog": "⏳ Pending: AWS Builder Center"
+  }
+}
