@@ -20,7 +20,9 @@ function App() {
     setResult(null);
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const apiUrl = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'production' 
+        ? 'https://lucknow-kiro-guide.vercel.app' 
+        : 'http://localhost:3001');
       const response = await fetch(`${apiUrl}/api/interpret`, {
         method: 'POST',
         headers: {
