@@ -166,6 +166,12 @@ Respond ONLY with valid JSON in this exact format:
     } catch (aiError) {
       console.error('OpenAI API error:', aiError);
       
+      // Check if it's a rate limit error
+      const isRateLimitError = aiError.status === 429;
+      const errorMessage = isRateLimitError 
+        ? 'OpenAI API rate limit reached. The free tier has low limits (3 requests/min). Add a payment method at https://platform.openai.com/account/billing to increase limits.'
+        : 'The cultural interpretation service is currently unavailable. This is the literal phrase only.';
+      
       // Fallback response
       return res.json({
         phrase,
@@ -174,9 +180,10 @@ Respond ONLY with valid JSON in this exact format:
         usageContext: 'Unable to determine',
         socialAppropriateness: 'Unknown',
         risks: 'Unable to interpret culturally — literal meaning only',
-        explanation: 'The cultural interpretation service is currently unavailable. This is the literal phrase only.',
+        explanation: errorMessage,
         rawAIResponse: null,
-        fallback: true
+        fallback: true,
+        rateLimitError: isRateLimitError
       });
     }
 
