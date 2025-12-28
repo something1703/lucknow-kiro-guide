@@ -20,7 +20,8 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch('https://lucknow-kiro-guide-rfcdk5svj-rvsrathore17-gmailcoms-projects.vercel.app/api/interpret', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const response = await fetch(`${apiUrl}/api/interpret`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
