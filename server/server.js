@@ -21,23 +21,39 @@ app.use((req, res, next) => {
   next();
 });
 
-// Path to product.md context file
-const CONTEXT_FILE_PATH = path.join(__dirname, '..', '.kiro', 'product.md');
+// Path to product.md context file - try multiple locations for Vercel
+function getContextFilePath() {
+  const possiblePaths = [
+    path.join(__dirname, '..', '.kiro', 'product.md'),           // Local development
+    path.join(process.cwd(), '.kiro', 'product.md'),             // Vercel root
+    path.join(__dirname, '..', '..', '.kiro', 'product.md'),     // One level up
+    path.join('/var/task', '.kiro', 'product.md'),               // Vercel Lambda
+  ];
+  
+  for (const filePath of possiblePaths) {
+    if (fs.existsSync(filePath)) {
+      console.log(`✓ Found context file at: ${filePath}`);
+      return filePath;
+    }
+  }
+  
+  console.error('✗ Context file not found in any location');
+  console.error('Tried paths:', possiblePaths);
+  return null;
+}
+
+const CONTEXT_FILE_PATH = getContextFilePath();
 
 // Check if context file exists
 function isContextLoaded() {
-  try {
-    return fs.existsSync(CONTEXT_FILE_PATH);
-  } catch (error) {
-    console.error('Error checking context file:', error);
-    return false;
-  }
+  return CONTEXT_FILE_PATH !== null;
 }
 
 // Load context file content
 function loadContextFile() {
   try {
-    if (!fs.existsSync(CONTEXT_FILE_PATH)) {
+    if (!CONTEXT_FILE_PATH || !fs.existsSync(CONTEXT_FILE_PATH)) {
+      console.error('Context file not found');
       return null;
     }
     const content = fs.readFileSync(CONTEXT_FILE_PATH, 'utf-8');
