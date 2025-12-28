@@ -20,7 +20,7 @@ function App() {
     setResult(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/interpret', {
+      const response = await fetch('https://lucknow-kiro-guide-rfcdk5svj-rvsrathore17-gmailcoms-projects.vercel.app/api/interpret', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
