@@ -24,9 +24,9 @@ app.use((req, res, next) => {
 // Path to product.md context file - try multiple locations for Vercel
 function getContextFilePath() {
   const possiblePaths = [
+    path.join(__dirname, '.kiro', 'product.md'),                 // Server directory (Vercel)
     path.join(__dirname, '..', '.kiro', 'product.md'),           // Local development
     path.join(process.cwd(), '.kiro', 'product.md'),             // Vercel root
-    path.join(__dirname, '..', '..', '.kiro', 'product.md'),     // One level up
     path.join('/var/task', '.kiro', 'product.md'),               // Vercel Lambda
   ];
   
