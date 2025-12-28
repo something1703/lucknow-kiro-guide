@@ -65,6 +65,90 @@ function loadContextFile() {
   }
 }
 
+// Manual fallback parser - extracts data directly from product.md
+function parseProductMdManually(phrase, contextContent) {
+  try {
+    // Normalize the search phrase
+    const searchPhrase = phrase.toLowerCase().trim();
+    
+    // Split context into entries
+    const entries = contextContent.split('### Entry');
+    
+    // Search for matching phrase
+    for (const entry of entries) {
+      const lines = entry.split('\n');
+      let phraseMatch = null;
+      let literalMeaning = '';
+      let impliedMeaning = '';
+      let toneCategory = '';
+      let usageContext = '';
+      let socialAppropriateness = '';
+      let risks = '';
+      let example = '';
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].trim();
+        
+        if (line.startsWith('**Phrase**:')) {
+          phraseMatch = line.replace('**Phrase**:', '').trim().replace(/"/g, '').toLowerCase();
+        } else if (line.startsWith('**Literal Meaning**:')) {
+          literalMeaning = line.replace('**Literal Meaning**:', '').trim();
+        } else if (line.startsWith('**Implied Meaning**:')) {
+          impliedMeaning = line.replace('**Implied Meaning**:', '').trim();
+        } else if (line.startsWith('**Tone Category**:')) {
+          toneCategory = line.replace('**Tone Category**:', '').trim();
+        } else if (line.startsWith('**Usage Context**:')) {
+          usageContext = line.replace('**Usage Context**:', '').trim();
+        } else if (line.startsWith('**Social Appropriateness**:')) {
+          socialAppropriateness = line.replace('**Social Appropriateness**:', '').trim();
+        } else if (line.startsWith('**Risks / Misinterpretation Notes**:')) {
+          risks = line.replace('**Risks / Misinterpretation Notes**:', '').trim();
+        } else if (line.startsWith('**Example Conversation Use**:')) {
+          example = lines.slice(i + 1, i + 5).join(' ').trim();
+        }
+      }
+      
+      // Check if this entry matches the search phrase
+      if (phraseMatch && (
+        phraseMatch.includes(searchPhrase) || 
+        searchPhrase.includes(phraseMatch) ||
+        literalMeaning.toLowerCase().includes(searchPhrase)
+      )) {
+        return {
+          phrase,
+          impliedMeaning: impliedMeaning || literalMeaning || 'Cultural meaning found in Lucknow knowledge base',
+          toneCategory: toneCategory || 'Contextual',
+          usageContext: usageContext || 'Common in Lucknow conversations',
+          socialAppropriateness: socialAppropriateness || 'Context-dependent',
+          risks: risks || 'None identified',
+          explanation: `From Lucknow Knowledge Base: "${phraseMatch}" - ${impliedMeaning}. ${usageContext}`,
+          rawAIResponse: null,
+          fallback: true,
+          manualParse: true
+        };
+      }
+    }
+    
+    // No match found - return generic cultural response
+    return {
+      phrase,
+      impliedMeaning: phrase,
+      toneCategory: 'Contextual',
+      usageContext: 'This phrase is part of Lucknow\'s cultural vocabulary',
+      socialAppropriateness: 'Context-dependent - respect and politeness are key',
+      risks: 'Without AI interpretation, exact cultural nuance may vary',
+      explanation: 'This phrase wasn\'t found in our knowledge base, but Lucknow culture emphasizes indirect communication, respect for elders, and polite speech. Consider the relationship context and formality level.',
+      rawAIResponse: null,
+      fallback: true,
+      manualParse: true
+    };
+    
+  } catch (error) {
+    console.error('Manual parse error:', error);
+    return null;
+  }
+}
+
 // Initialize OpenAI client for AI interpretation
 const OpenAI = require('openai');
 let openaiClient = null;
@@ -165,14 +249,21 @@ Respond ONLY with valid JSON in this exact format:
       aiResponse = completion.choices[0].message.content;
     } catch (aiError) {
       console.error('OpenAI API error:', aiError);
+      console.log('🔄 Attempting manual fallback from product.md...');
       
-      // Check if it's a rate limit error
+      // Try manual parsing fallback
+      const manualResult = parseProductMdManually(phrase, contextContent);
+      if (manualResult) {
+        console.log('✓ Manual fallback successful');
+        return res.json(manualResult);
+      }
+      
+      // Last resort fallback
       const isRateLimitError = aiError.status === 429;
       const errorMessage = isRateLimitError 
-        ? 'OpenAI API rate limit reached. The free tier has low limits (3 requests/min). Add a payment method at https://platform.openai.com/account/billing to increase limits.'
-        : 'The cultural interpretation service is currently unavailable. This is the literal phrase only.';
+        ? 'OpenAI API rate limit reached. Showing data from Lucknow knowledge base instead.'
+        : 'AI service unavailable. Showing data from Lucknow knowledge base.';
       
-      // Fallback response
       return res.json({
         phrase,
         impliedMeaning: phrase,
