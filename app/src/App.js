@@ -122,7 +122,7 @@ function App() {
           </div>
         )}
 
-        {result && !result.fallback && (
+        {result && (!result.fallback || result.manualParse) && (
           <div className="result-card">
             <div className="result-header">
               <h2 className="result-title">Cultural Interpretation</h2>
@@ -179,7 +179,7 @@ function App() {
           </div>
         )}
 
-        {result && result.fallback && (
+        {result && result.fallback && !result.manualParse && (
           <div className="alert alert-warning">
             <span className="alert-icon">⚠️</span>
             <div>
