@@ -2,129 +2,231 @@
 
 **Kiro Heroes Week 5 Challenge: "The Local Guide"**
 
-AI-powered cultural interpreter that decodes Lucknow's indirect communication and polite phrases using custom Kiro context.
+AI-powered cultural interpreter that decodes Lucknow's indirect communication and polite phrases using custom Kiro context. Built with 928 lines of cultural knowledge encoding Lucknow's tehzeeb (etiquette), this tool transforms literal translations into culturally-aware interpretations.
 
-## 🌐 Live Deployments
+## 🌐 Live Demo
 
-- **Frontend**: https://lucknow-kiro-guide-5t9d-d8nksu1si.vercel.app/
-- **Backend API**: https://lucknow-kiro-guide-rfcdk5svj-rvsrathore17-gmailcoms-projects.vercel.app
-- **GitHub**: https://github.com/something1703/lucknow-kiro-guide
+- **🎨 Frontend**: https://lucknow-kiro-guide-5t9d-d8nksu1si.vercel.app/
+- **⚡ Backend API**: https://lucknow-kiro-guide.vercel.app
+- **📦 GitHub**: https://github.com/something1703/lucknow-kiro-guide
 
-## 🎯 Challenge Overview
+## 🎯 What It Does
 
-**Task**: Build a local guide using custom context (product.md)  
-**Solution**: Lucknow cultural interpreter with 49,031 characters of knowledge  
-**Tech**: React + Express + OpenAI GPT-4o-mini + Kiro Architecture
+Lucknow is famous for its **tehzeeb** - a culture of extreme politeness where "no" is never said directly. This interpreter helps decode:
+- **Indirect Refusals**: "Dekhte hain" (Let's see) = Probably not happening
+- **Polite Disagreement**: "Aap bilkul sahi keh rahe hain" + "lekin..." = I respectfully disagree
+- **Respect Markers**: "Chaliye ji" - Understanding when "ji" adds cultural weight
+- **Social Context**: When to use formal vs casual speech
 
-## 🧠 The Kiro Approach
+## ✨ Key Features
 
-This project uses `.kiro/product.md` (928 lines) to encode:
-- Phrase entries with implied meanings
-- Behavioral rules for indirect communication  
-- Tone analysis frameworks
-- Social appropriateness guidelines
+### 🎨 Beautiful Glass Morphism UI
+- Transparent cards with backdrop blur effects
+- Lucknow cityscape background
+- Smooth animations (fade-in, slide-up, hover effects)
+- Responsive design
 
-The backend loads this context on every request (49,031 chars), steering AI from generic to culturally-aware responses.
+### 🧠 Dual-Mode Intelligence
+1. **AI Mode** (Primary): OpenAI GPT-4o-mini with full 49,031 character context
+2. **Fallback Mode** (Backup): Direct product.md parsing when AI unavailable
 
-## ✨ Features
-
-- 🎨 Glass Morphism UI with Lucknow background
-- 💭 Implied Meaning interpretation
-- 🎭 Tone Category analysis
-- 📍 Usage Context detection
-- ✓ Social Appropriateness scoring
-- ⚠️ Cultural Risk warnings
-- 🔄 **Smart Fallback**: When AI is unavailable, automatically parses product.md for direct matches
+### 📊 Cultural Analysis Breakdown
+- 💭 **Implied Meaning** - What they actually mean
+- 🎭 **Tone Category** - Polite/Casual/Respectful/Sarcastic
+- 📍 **Usage Context** - When and where to use it
+- ✓ **Social Appropriateness** - Who can say it to whom
+- ⚠️ **Cultural Risks** - Common misinterpretations
 
 ## 🏗️ Architecture
 
-**Dual-Mode Operation**:
-1. **AI Mode** (Primary): OpenAI GPT-4o-mini with full 49KB context
-2. **Fallback Mode** (Backup): Direct product.md parsing when AI unavailable
+### The Kiro Pattern
+```
+User Input → Backend loads .kiro/product.md (49KB) 
+           → Sends to OpenAI as system context
+           → AI generates culturally-aware interpretation
+           → Frontend displays with analysis cards
+```
 
-**Environment-Based Config**:
-- Local dev: `http://localhost:3001` (from `.env.local`)
-- Production: Vercel backend URL (from `.env.production`)
+### Smart Fallback System
+When OpenAI API is unavailable (rate limits, errors):
+1. Backend automatically searches `product.md` for phrase
+2. Extracts: implied meaning, tone, usage context, risks
+3. Returns cultural data directly from knowledge base
+4. If no match: provides generic Lucknow cultural guidance
+
+### Environment-Based Config
+- **Local Dev**: `http://localhost:3001` (automatic detection)
+- **Production**: `https://lucknow-kiro-guide.vercel.app` (NODE_ENV check)
+
+## 🎯 Challenge Compliance
+
+✅ **Custom Context File**: `.kiro/product.md` (928 lines, 49,031 characters)  
+✅ **Cultural Encoding**: Phrase entries, behavioral rules, tone classification  
+✅ **.kiro/ at Project Root**: Visible in GitHub repo  
+✅ **AI Utilization**: OpenAI GPT-4o-mini with full context loading  
+✅ **Public Repository**: https://github.com/something1703/lucknow-kiro-guide  
+✅ **Live Deployment**: Working on Vercel  
+✅ **Screenshots**: 8 screenshots in `docs/screenshots/`
 
 ## 🚀 Quick Start
 
-```bash
-# Clone
-git clone https://github.com/something1703/lucknow-kiro-guide.git
-cd lucknow-kiro-guide
+### Prerequisites
+- Node.js 14+
+- OpenAI API key
 
-# Backend
+### Backend Setup
+```bash
 cd server
 npm install
-cp .env.example .env
-# Add OPENAI_API_KEY to .env
-npm run dev
 
-# Frontend (new terminal)
-cd ../app
+# Create .env file
+echo "OPENAI_API_KEY=your-key-here" > .env
+echo "PORT=3001" >> .env
+
+npm run dev
+```
+
+### Frontend Setup
+```bash
+cd app
 npm install
+
+# Create .env.local for development
+echo "REACT_APP_API_URL=http://localhost:3001" > .env.local
+
 npm start
 ```
 
 Visit: http://localhost:3000
 
-## 📁 Structure
+## 📁 Project Structure
 
 ```
-├── .kiro/product.md    # 928 lines of cultural knowledge (REQUIRED)
-├── app/                # React frontend
-└── server/             # Express API
+lucknow-kiro-guide/
+├── .kiro/
+│   ├── product.md          # 928 lines of Lucknow cultural knowledge
+│   ├── prompts.json        # Kiro configuration
+│   └── tasks.json          # Project metadata
+├── app/                    # React frontend
+│   ├── src/
+│   │   ├── App.js          # Main component with glass morphism
+│   │   ├── App.css         # Custom styling (transparent cards, animations)
+│   │   └── index.js        # React 18 entry point
+│   ├── public/
+│   │   └── Things-to-Do-in-Lucknow.jpg  # Background image
+│   ├── .env.local          # Dev API URL
+│   └── .env.production     # Production API URL
+├── server/                 # Express backend
+│   ├── .kiro/
+│   │   └── product.md      # Copy for Vercel deployment
+│   ├── server.js           # API with fallback parser
+│   ├── .env                # OpenAI API key
+│   └── vercel.json         # Serverless config
+├── docs/
+│   └── screenshots/        # 8 screenshots of working app
+└── README.md
 ```
-
-## 🏆 Hackathon Compliance
-
-✅ Custom context (`.kiro/product.md`)  
-✅ Encodes Lucknow cultural nuances  
-✅ `.kiro/` at project root  
-✅ Public GitHub repo
 
 ## 🛠️ Tech Stack
 
-- React 18 + Glass Morphism CSS
-- Express.js + Node.js
-- OpenAI GPT-4o-mini
-- Kiro knowledge base pattern
-- Manual fallback parser
+**Frontend**:
+- React 18.2.0 with Hooks
+- Glass Morphism CSS (backdrop-filter, rgba transparency)
+- Custom animations (@keyframes)
+- Environment-based API config
 
-## 📝 Environment
+**Backend**:
+- Express.js 4.18.2
+- OpenAI SDK 4.20.1 (GPT-4o-mini)
+- Manual fallback parser (product.md search)
+- CORS enabled
 
-**Backend** (`server/.env`):
-```env
-OPENAI_API_KEY=sk-your-key-here
-PORT=3001
+**Deployment**:
+- Vercel (Frontend + Serverless Backend)
+- GitHub Actions auto-deploy
+
+**Kiro Architecture**:
+- Context loading: 49,031 characters per request
+- Behavioral rules: Polite disagreement, elder respect, indirect refusal
+- Phrase database: 50+ entries with usage examples
+
+## 📸 Screenshots
+
+View all 8 screenshots in `docs/screenshots/`:
+- Homepage with Glass Morphism UI
+- Cultural Interpretation - "Chaliye ji"
+- Interpretation - "Dekhte hain"
+- Backend API responses
+- Fallback mode demonstration
+- Mobile responsive views
+
+## 🎓 How It Works
+
+### The Cultural Knowledge Base
+`product.md` contains structured entries:
+```markdown
+**Phrase**: "Chaliye ji"
+**Literal Meaning**: Let's go
+**Implied Meaning**: Polite invitation showing respect
+**Tone Category**: respectful
+**Usage Context**: With elders, guests, formal settings
+**Social Appropriateness**: Essential with elders; omission is rude
+**Risks**: May seem overly formal with close friends
 ```
 
-**Frontend** (`.env.local` for dev, `.env.production` for build):
-```env
-REACT_APP_API_URL=http://localhost:3001
+### AI System Prompt
+The backend sends the entire 49KB context to OpenAI:
+```javascript
+"You are a Lucknow Local Tehzeeb & Slang Interpreter. 
+Use the following knowledge base to provide culturally accurate interpretations..."
 ```
 
-## ⚠️ Known Issues & Solutions
+### Manual Fallback Parser
+When AI fails, the backend:
+1. Splits product.md into entries
+2. Searches for phrase match (case-insensitive)
+3. Extracts structured fields
+4. Returns with `manualParse: true` flag
 
-### Production Deployment
-- **Issue**: OpenAI API rate limits on free tier (3 req/min)
-- **Solution**: Smart fallback automatically searches product.md when AI fails
-- **Fix**: Add payment method to OpenAI account for higher limits
+## ⚠️ Known Limitations
 
-### Local vs Production
-- **Solution**: Environment variables auto-detect local vs production
-- Local: Uses `localhost:3001`
-- Production: Uses Vercel backend URL
+- **OpenAI Free Tier**: 3 requests/min limit (solved with smart fallback)
+- **Fallback Accuracy**: Manual parser is literal; AI provides deeper context
+- **Preview URLs**: Use production domain for stable API
 
-## 🚀 What Works
+## 🚀 Deployment Instructions
 
-✅ **Local Development**: Full AI + manual fallback working  
-✅ **GitHub Repo**: Complete with .kiro/ directory  
-✅ **Frontend Deployed**: Live on Vercel  
-✅ **Backend Deployed**: API endpoints accessible  
-✅ **Context Loading**: 49,031 characters loaded successfully  
-✅ **Fallback System**: Parses product.md when AI unavailable
+### Backend (Vercel Serverless)
+```bash
+cd server
+vercel
+# Set OPENAI_API_KEY in dashboard: Settings → Environment Variables
+```
+
+### Frontend (Vercel Static)
+```bash
+cd app
+vercel --prod
+```
+
+The frontend automatically detects production environment and uses the correct API URL.
+
+## 🤝 Contributing
+
+This is a hackathon submission project. For questions about Lucknow culture or the Kiro pattern, open an issue!
+
+## 📜 License
+
+MIT License - Built for Kiro Heroes Week 5 Challenge
+
+## 🙏 Acknowledgments
+
+- **Kiro Framework**: For the knowledge base pattern
+- **Lucknow's Tehzeeb**: The cultural foundation
+- **OpenAI**: GPT-4o-mini for AI interpretation
+- **Vercel**: Seamless deployment platform
 
 ---
 
-**Built with ❤️ for Kiro Heroes Week 5**
+**Made with 🕌 for Kiro Heroes Week 5 Challenge**  
+*Decoding Lucknow's beautiful culture, one phrase at a time*
